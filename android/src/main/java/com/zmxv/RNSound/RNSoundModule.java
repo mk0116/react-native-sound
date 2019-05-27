@@ -309,11 +309,11 @@ public class RNSoundModule extends ReactContextBaseJavaModule implements AudioMa
       player.reset();
       player.release();
       this.playerPool.remove(key);
+      AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+      audioManager.abandonAudioFocus(this);
 
       // Release audio focus in Android system
       if (!this.mixWithOthers && key == this.focusedPlayerKey) {
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        audioManager.abandonAudioFocus(this);
       }
     }
   }
